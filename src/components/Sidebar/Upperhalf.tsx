@@ -2,7 +2,17 @@ import { AiOutlineSearch } from "react-icons/ai";
 import CloudyNight from "../../assets/CloudyNight.png";
 import { useSelector } from "react-redux";
 import ReduxState from "../../Interfaces/ReduxState";
+import { useState } from "react";
 function Upperhalf() {
+
+  const [search, setSearch] = useState<string>("");
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+
+    setSearch(e.target.value);
+
+  }
+
   const currentData = useSelector((state: ReduxState) => state.forecast.data.currentData);
   return (
     <div className="max-h-[30rem] w-full p-4 flex flex-col justify-center items-start basis-[65%]">
@@ -12,9 +22,10 @@ function Upperhalf() {
           placeholder="Search..."
           className="px-2 py-2 rounded-tl-md rounded-bl-md block basis-[90%] bg-white text-black"
           type="text"
+          onChange={handleOnChange}
         />
 
-        <button className="block basis-[10%] p-4 text-white text-lg font-semibold bg-sky-500 rounded-tr-md rounded-br-md">
+        <button className="block basis-[10%] p-4 text-white text-lg font-semibold bg-sky-500 rounded-tr-md rounded-br-md" onClick={() => setSearch(search)}>
           <AiOutlineSearch />
         </button>
       </div>

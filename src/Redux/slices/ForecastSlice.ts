@@ -1,21 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ForecastDataState from "../../Interfaces/ForecastDataState";
-import { axiosInstance } from "../../config/AxiosInstance";
-
-export const fetchData = createAsyncThunk("data/fetchdata", async () => {
-  try {
-    const response = await axiosInstance.get(
-      `forecast.json?key=${
-        import.meta.env.VITE_API_KEY
-      }&days=7&aqi=yes&q=Bengaluru`
-    );
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
+import { axiosInstance as AxiosInstance } from "../../config/AxiosInstance";
 const initialState: ForecastDataState = {
   status: "default",
   data: {
@@ -43,7 +28,24 @@ const initialState: ForecastDataState = {
   },
 };
 
-export const ForecastSlice = createSlice({
+export const fetchData = createAsyncThunk(
+  "data/fetchdata",
+  async (city: string) => {
+    try {
+      const response = await AxiosInstance.get(
+        `forecast.json?key=${
+          import.meta.env.VITE_API_KEY
+        }&days=7&aqi=yes&q=${city}`
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+const forecastSlice = createSlice({
   name: "forecast",
   initialState,
   reducers: {},
@@ -51,8 +53,8 @@ export const ForecastSlice = createSlice({
     builder
       .addCase(fetchData.fulfilled, (state, action) => {
         if (!action.payload) return;
+        console.log(action.payload);
         state.status = "success";
-        console.log("action", action.payload);
         const { location, forecast, current } = action.payload.data;
 
         // setting location
@@ -62,7 +64,14 @@ export const ForecastSlice = createSlice({
         state.data.location.localtime = location?.localtime;
 
         state.data.dayForecast = forecast.forecastday.map(
-          (foreCastItem: any) => {
+          (foreCastItem: {
+            date: string;
+            day: {
+              avgtemp_c: number;
+              avgtemp_f: number;
+              condition: { text: string };
+            };
+          }) => {
             return {
               date: foreCastItem.date,
               avgtemp_c: foreCastItem.day.avgtemp_c,
@@ -71,6 +80,7 @@ export const ForecastSlice = createSlice({
             };
           }
         );
+
         // setting currentData
 
         state.data.currentData.uv = current.uv;
@@ -93,4 +103,4 @@ export const ForecastSlice = createSlice({
   },
 });
 
-export default ForecastSlice.reducer;
+export default forecastSlice.reducer;
