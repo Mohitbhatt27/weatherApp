@@ -2,8 +2,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import CloudyNight from "../../assets/CloudyNight.png";
 function Upperhalf() {
   return (
-    <div className="h-[50%] w-full p-4 flex flex-col justify-center items-start basis-[65%]">
-      <div className="flex flex-start w-full mt-8">
+    <div className="h-[60%] w-full p-4 flex flex-col justify-center items-start basis-[55%]">
+      <div className="flex flex-start w-full mt-12">
         {/* Search bar div */}
         <input
           placeholder="Search..."
@@ -16,12 +16,12 @@ function Upperhalf() {
         </button>
       </div>
 
-      <div className="w-full h-[60%] flex justify-center mt-12">
+      <div className="w-full h-[60%] flex justify-center mt-8">
         {/* image container */}
-        <img src={CloudyNight} className="w-[60%] h-full" />
+        <img src={CloudyNight} className="w-[60%]" />
       </div>
 
-      <div className="flex flex-col mt-4">
+      <div className="flex flex-col">
         {/* Temperature data */}
         <div className="text-7xl text-black flex items-start">
           <div>25.4</div>
