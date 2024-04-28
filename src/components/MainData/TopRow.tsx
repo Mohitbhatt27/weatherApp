@@ -9,11 +9,11 @@ function TopRow() {
 
       <div className="flex items-center justify-center">
         {/* C or F */}
-        <div className="mr-8 border rounded-[100%] bg-black text-white px-[14px] py-3 hover:cursor-pointer">
-          °C
+        <div className="w-10 h-10 rounded-full flex justify-center items-center bg-black text-white  hover:cursor-pointer">
+          <p className="font-semibold">°C</p>
         </div>
-        <div className="mr-8 border rounded-[100%] bg-white text-black px-[14px] py-3 hover:cursor-pointer">
-          °F
+        <div className="w-10 h-10 rounded-full flex justify-center items-center bg-white text-black hover:cursor-pointer">
+          <p className="font-semibold">°F</p>
         </div>
       </div>
     </div>
