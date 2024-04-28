@@ -1,7 +1,16 @@
 import MainData from "../components/MainData/MainData";
 import Sidebar from "../components/Sidebar/Sidebar";
 import NightImage from "../assets/night.jpg";
+import { useEffect } from "react";
+import { fetchData } from "../Redux/slices/ForecastSlice";
+import { useAppDispatch } from "../hooks/hooks";
 function Home() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, []);
+
   return (
     <div
       className="min-h-[100vh] px-8 py-8 flex flex-row justify-center items-stretch"
